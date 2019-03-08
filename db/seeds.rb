@@ -15,45 +15,52 @@ Ingredient.destroy_all
 Dose.destroy_all
 Cocktail.destroy_all
 
-puts 'Creating 50 faker ingredients...'
+puts 'Creating fake ingredients...'
 
 i = 1
-50.times do
+30.times do
   ingredient = Ingredient.new(
     name: Faker::Food.ingredient
   )
-  ingredient.save!
+  if ingredient.save
+  else
+    next
+  end
   i += 1
 end
 
-puts 'Finished the Ingredient!'
+puts "Finished the Ingredient! #{Ingredient.all.count}"
 
-puts 'Creating 20 faker Cocktails...'
+puts 'Creating faker Cocktails...'
 
 i = 1
 20.times do
   cocktail = Cocktail.new(
     name: Faker::Movie.quote
   )
-  cocktail.save!
+  if cocktail.save
+     else
+    next
+  end
   i += 1
 end
-puts 'Finished the Cocktails!'
+puts "Finished the Cocktails! #{Cocktail.all.count}"
 
-puts 'Creating 70 fake doses...'
+puts 'Creating fake doses...'
 
 Cocktail.all.each do |cocktail|
   i = 1
-  num = (1...4).rand
-  num.times do
     dose = Dose.new(
-      name: Faker::Food.measurement,
+      description: Faker::Food.measurement,
       cocktail_id: cocktail.id,
-      ingredient_id: (1...50).sample
+      ingredient_id: (1...50).to_a.sample
     )
-    dose.save!
+    if dose.save
+       else
+    next
+    end
     i += 1
-  end
+
 end
 
 puts 'Finished the doses!'
