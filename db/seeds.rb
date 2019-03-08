@@ -32,16 +32,17 @@ end
 puts "Finished the Ingredient! #{Ingredient.all.count}"
 
 puts 'Creating faker Cocktails...'
+url = "https://images.unsplash.com/photo-1486947799489-3fabdd7d32a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80"
 
 i = 1
 20.times do
   cocktail = Cocktail.new(
     name: Faker::Movie.quote
   )
-  if cocktail.save
-     else
-    next
-  end
+  cocktail.remote_photo_url = url
+
+  next unless cocktail.save
+
   i += 1
 end
 puts "Finished the Cocktails! #{Cocktail.all.count}"
@@ -50,17 +51,16 @@ puts 'Creating fake doses...'
 
 Cocktail.all.each do |cocktail|
   i = 1
-    dose = Dose.new(
-      description: Faker::Food.measurement,
-      cocktail_id: cocktail.id,
-      ingredient_id: (1...50).to_a.sample
-    )
-    if dose.save
-       else
+  dose = Dose.new(
+    description: Faker::Food.measurement,
+    cocktail_id: cocktail.id,
+    ingredient_id: (1...50).to_a.sample
+  )
+  if dose.save
+  else
     next
-    end
-    i += 1
-
+  end
+  i += 1
 end
 
 puts 'Finished the doses!'
