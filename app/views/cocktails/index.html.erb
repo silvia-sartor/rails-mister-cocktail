@@ -1,24 +1,21 @@
 <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/background.png);">
-  <div class="container">
+  <div class="container banner-box">
     <div>
       <h1>Fancy Cocktails</h1>
     </div>
     <h3>Get wasted!</h3>
-    <%= link_to "Go back!","cocktails#show", class: "btn btn-gradient btn-white" %>
+    <%= link_to "Add a Cocktail!" ,"cocktails#new",method: :get, class: "btn btn-gradient btn-white" %>
   </div>
 </div>
-
-
-
 
 <div class="main-container">
   <div class="cards">
     <div class="row">
       <% @cocktails.each do |cocktail| %>
-      <div class="col-xs-12 col-sm-6 col-md-4">
-       <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('<%= cl_image_path cocktail.photo, height: 300, width: 500, crop: :fill %>')" >
 
-        <p><%= link_to cocktail.name, cocktail_path(cocktail)%></p>
+        <p class="card-white"><%= link_to cocktail.name, cocktail_path(cocktail)%></p>
       </div>
     </div>
     <% end %>
